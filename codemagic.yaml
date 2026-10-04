@@ -1,0 +1,87 @@
+# Manual workflows only. No publishing, email, webhooks or scheduled builds.
+workflows:
+  ios-simulator:
+    name: FocusSpace iOS compile check
+    instance_type: mac_mini_m2
+    max_build_duration: 30
+    environment:
+      node: 24
+      xcode: latest
+    scripts:
+      - name: Install locked dependencies
+        script: npm ci
+      - name: Validate application
+        script: |
+          set -euo pipefail
+          npm run typecheck
+          npm run lint
+          npm test
+          npm run ios:sync
+      - name: Compile unsigned simulator application
+        script: |
+          set -euo pipefail
+          mkdir -p .runtime/ios-cloud
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath .runtime/ios-cloud/DerivedData \
+            CODE_SIGNING_ALLOWED=NO build 2>&1 | tee .runtime/ios-cloud/build.log
+          ditto -c -k --keepParent .runtime/ios-cloud/DerivedData/Build/Products/Debug-iphonesimulator/App.app .runtime/ios-cloud/FocusSpace-simulator.zip
+    artifacts:
+      - .runtime/ios-cloud/FocusSpace-simulator.zip
+      - .runtime/ios-cloud/build.log
+  ios-signed-artifact:
+    name: FocusSpace signed iOS artifact (requires configured signing)
+    instance_type: mac_mini_m2
+    max_build_duration: 30
+    environment:
+      node: 24
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: local.focusspace.mobile
+    scripts:
+      - name: Install and validate
+        script: |
+          set -euo pipefail
+          npm ci
+          npm run typecheck
+          npm run lint
+          npm test
+          npm run ios:sync
+      - name: Apply configured signing profiles
+        script: xcode-project use-profiles
+      - name: Build signed artifact without uploading
+        script: |
+          set -euo pipefail
+          cd ios/App
+          xcode-project build-ipa --project App.xcodeproj --scheme App
+    artifacts:
+      - ios/App/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+
+  android-debug:
+    name: FocusSpace Android debug APK and checks
+    instance_type: linux_x2
+    max_build_duration: 30
+    environment:
+      node: 24
+      java: 21
+    scripts:
+      - name: Install and validate
+        script: |
+          set -euo pipefail
+          npm ci
+          npm run typecheck
+          npm run lint
+          npm test
+          npm run android:sync
+      - name: Build and lint Android
+        script: |
+          set -euo pipefail
+          cd android
+          chmod +x gradlew
+          ./gradlew --no-daemon :app:assembleDebug :app:testDebugUnitTest :app:lintDebug :app:bundleRelease
+    artifacts:
+      - android/app/build/outputs/apk/debug/*.apk
+      - android/app/build/outputs/bundle/release/*.aab
+      - android/app/build/reports/**

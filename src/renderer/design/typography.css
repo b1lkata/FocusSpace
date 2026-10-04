@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Manrope';
+  src: url('./fonts/Manrope-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+/* Small interface text gets an open, readable face; the large title keeps its contrast. */
+.app.living { font-family: 'Manrope', 'Segoe UI', sans-serif; }
+.hero-copy h1 { font-family: 'Segoe UI', sans-serif; }
+.hero-copy h1 em { font-family: Georgia, 'Times New Roman', serif; }
+.living .nav-center { font-size: 12px; font-weight: 500; letter-spacing: .1px; }
+.living .hero-kicker { font-size: 12px; font-weight: 500; letter-spacing: .15px; }
+.living .hero-copy p { font-size: 15px; line-height: 1.75; letter-spacing: .1px; }
+.living .resume-caption { font-size: 12px; font-weight: 500; }
+.living .orbit-label,.living .interaction-hint { font-size: 11px; font-weight: 500; letter-spacing: .1px; }
+.living .scroll-cue,.living .local-caption { font-size: 12px; font-weight: 500; }
+.living .section-kicker { font-size: 10px; font-weight: 600; letter-spacing: 1.25px; }
+.living .space-count,.living .portal-number { font-family: inherit; font-size: 11px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.living .portal-status { font-size: 11px; font-weight: 500; }
+.living .portal-stats>span { font-size: 12px; font-weight: 500; }
+.living .new-space>span:last-child { font-size: 12px; }
+.living .home-bottom>span,.living .home-bottom>span.footer-brand { font-size: 12px; font-weight: 500; }
+.living .field-controls .motion-switch { font-size: 11px; font-weight: 500; }
+.living .main-footer { font-size: 11px; }
+.living .card-type,.living .field-label,.living .section-label,.living .badge { font-weight: 500; }
+
+@media (max-width: 899px) {
+  .living .hero-kicker,.living .resume-caption { font-size: 11px; }
+  .living .hero-copy p { font-size: 13px; }
+  .living .interaction-hint { font-size: 11px; }
+  .living .home-bottom>span,.living .home-bottom>span.footer-brand { font-size: 11px; }
+  .living .main-footer { font-size: 10px; padding-right: 180px; }
+  .living .portal-caption { flex-wrap: wrap; }
+}

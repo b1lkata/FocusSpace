@@ -1,0 +1,40 @@
+import { _electron as electron, expect } from '@playwright/test';
+import { createServer } from 'node:http';
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+const output = resolve('.runtime/music-package'); mkdirSync(output, { recursive: true });
+const manifest = JSON.parse(readFileSync('package.json', 'utf8'));
+const env = { ...process.env, FOCUSSPACE_DATA_DIR: mkdtempSync(resolve(output, 'data-')) }; delete env.ELECTRON_RUN_AS_NODE; delete env.FOCUSSPACE_LEGACY;
+const fixture = createServer((_request, response) => response.end('<title>Packaged music fixture</title><h1>A separate music page</h1>'));
+await new Promise(resolve => fixture.listen(0, '127.0.0.1', resolve));
+let app;
+const report = { assertions: [], version: manifest.version };
+try {
+  const launch = async () => {
+    app = await electron.launch({ executablePath: resolve(process.env.FOCUSSPACE_PACKAGE_DIR ?? manifest.build.directories.output, 'win-unpacked/FocusSpace.exe'), env });
+    const page = await app.firstWindow(); await expect(page.getByRole('heading', { name: 'A little room for good sounds.' })).toBeVisible(); return page;
+  };
+  let page = await launch();
+  await page.evaluate(() => document.fonts.ready);
+  expect(await page.evaluate(() => Array.from(document.fonts).some(face => face.family === 'Manrope' && face.status === 'loaded'))).toBe(true);
+  await page.getByRole('textbox', { name: 'Companion name' }).fill('Luna'); await page.getByRole('combobox', { name: 'Companion temperament' }).selectOption('gentle');
+  await expect(page.getByLabel('Import audio files')).toBeEnabled();
+  await page.getByLabel('Import audio files').setInputFiles({ name: 'Packaged audio.mp3', mimeType: 'audio/mpeg', buffer: readFileSync('tests/fixtures/original-tone.mp3') });
+  await expect(page.getByRole('button', { name: 'Play audio Packaged audio', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Play audio Packaged audio', exact: true }).click();
+  await expect.poll(() => page.locator('.audio-library audio').evaluate(audio => audio.currentTime)).toBeGreaterThan(0);
+  await app.close(); app = undefined; page = await launch();
+  await expect(page.getByRole('button', { name: 'Play audio Packaged audio', exact: true })).toBeVisible();
+  expect(await page.locator('.audio-library audio').evaluate(audio => audio.paused)).toBe(true);
+  report.assertions.push('Packaged local audio plays and survives restart without autoplay.'); await expect(page.getByRole('button', { name: 'Move Luna' })).toBeVisible(); report.assertions.push('Packaged music home and local font load; companion survives app restart.');
+  await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setBounds({ width: 900, height: 620 }));
+  await page.evaluate(async url => window.focusspace.call({ type: 'browse', url }), `http://127.0.0.1:${fixture.address().port}`);
+  await expect(page.getByRole('button', { name: 'Back to listening' })).toBeVisible();
+  await expect.poll(() => app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].contentView.children[0]?.webContents.getTitle())).toBe('Packaged music fixture');
+  const bounds = await page.locator('.music-browser-host').boundingBox();
+  const native = await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].contentView.children[0].getBounds());
+  expect(Math.abs(native.width - bounds.width)).toBeLessThanOrEqual(1); expect(Math.abs(native.height - bounds.height)).toBeLessThanOrEqual(1);
+  await page.getByRole('button', { name: 'Back to listening' }).click(); report.assertions.push('Packaged isolated site loads with correct small-window geometry and closes back to listening.');
+  const identity = await app.evaluate(({ app }) => app.getVersion()); expect(identity).toBe(manifest.version);
+  report.assertions.forEach(value => console.log(`PASS ${value}`));
+} finally { if (app) await app.close(); await new Promise(resolve => fixture.close(resolve)); writeFileSync(resolve(output, 'report.json'), JSON.stringify(report, null, 2)); }

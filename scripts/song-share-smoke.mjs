@@ -1,0 +1,54 @@
+import { chromium, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import { readFileSync, mkdirSync } from 'node:fs';
+const output = '.runtime/song-share'; mkdirSync(output, { recursive: true });
+const browser = await chromium.launch({ channel: 'msedge', headless: true });
+try {
+  const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  const page = await context.newPage(); const errors = []; page.on('pageerror', e => errors.push(e.message));
+  await page.addInitScript(() => {
+    window.shared = []; window.copied = '';
+    Object.defineProperty(navigator, 'canShare', { value: () => true, configurable: true });
+    Object.defineProperty(navigator, 'share', { value: async data => { if (window.cancelShare) throw new DOMException('Canceled', 'AbortError'); window.shared.push({ url: data.url, title: data.title, file: data.files?.[0]?.name, size: data.files?.[0]?.size }); }, configurable: true });
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText: async text => { window.copied = text; } }, configurable: true });
+  });
+  await page.route('https://**/*', route => {
+    const url = route.request().url();
+    if (url.includes('api.audius.co') && url.includes('/stream?')) return route.fulfill({ contentType: 'audio/mpeg', body: readFileSync('tests/fixtures/original-long-tone.mp3') });
+    if (url.includes('api.audius.co')) return route.fulfill({ json: { data: [{ id: 'sharefixture', title: 'Original Share', user: { name: 'Test Artist' }, permalink: '/test-artist/original-share', artwork: { '1000x1000': 'https://art.test/cover.svg' } }] } });
+    if (url.includes('art.test')) return route.fulfill({ contentType: 'image/svg+xml', headers: { 'access-control-allow-origin': '*' }, body: '<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000"><rect width="1000" height="1000" fill="#91c8c1"/><circle cx="500" cy="500" r="270" fill="#222138"/></svg>' });
+    return route.fulfill({ json: { response: { docs: [] }, results: [] } });
+  });
+  await page.route('**/api/ccmixter?**', route => route.fulfill({ json: [] }));
+  await page.goto('http://127.0.0.1:4173/');
+  await page.getByRole('combobox', { name: 'Search free music' }).fill('Original Share');
+  await page.getByRole('button', { name: 'Stream Original Share by Test Artist', exact: true }).click();
+  await page.getByRole('button', { name: 'Share song ↗' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Share this song' }); await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole('button', { name: 'Save card' })).toBeEnabled();
+  const image = dialog.getByRole('img');
+  await expect.poll(() => image.evaluate(img => [img.naturalWidth, img.naturalHeight])).toEqual([1080, 1920]);
+  const firstSrc = await image.getAttribute('src'); await page.waitForTimeout(700); expect(await image.getAttribute('src')).toBe(firstSrc);
+  await dialog.getByRole('button', { name: 'Copy song & link' }).click(); expect(await page.evaluate(() => window.copied)).toContain('https://audius.co/test-artist/original-share');
+  await dialog.getByRole('button', { name: 'Share link…' }).click(); await dialog.getByRole('button', { name: 'Share card…' }).click();
+  expect(await page.evaluate(() => window.shared)).toEqual([expect.objectContaining({ url: 'https://audius.co/test-artist/original-share' }), expect.objectContaining({ file: 'Tuniko-story.png', size: expect.any(Number) })]);
+  const download = page.waitForEvent('download'); await dialog.getByRole('button', { name: 'Save card' }).click(); const exported = await download; await exported.saveAs(`${output}/story.png`);
+  await dialog.screenshot({ path: `${output}/desktop.png` });
+  await dialog.getByRole('button', { name: 'Post · 1:1' }).click(); await expect.poll(() => image.evaluate(img => img.naturalHeight)).toBe(1080);
+  await page.evaluate(() => { window.cancelShare = true; }); await dialog.getByRole('button', { name: 'Share card…' }).click(); await expect(dialog.getByRole('status')).toBeEmpty();
+  await page.setViewportSize({ width: 390, height: 844 }); await page.getByRole('button', { name: 'Open full player' }).click(); await page.getByRole('button', { name: 'Share song ↗' }).click(); await expect(dialog.getByRole('button', { name: 'Share card…' })).toBeVisible(); await dialog.screenshot({ path: `${output}/phone.png` }); expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze(); expect(audit.violations.map(x => x.id)).toEqual([]);
+  await page.keyboard.press('Escape'); await expect(dialog).toHaveCount(0); await expect(page.getByRole('button', { name: 'Share song ↗' })).toBeFocused();
+  await page.getByRole('button', { name: 'Close full player' }).click();
+  await page.getByLabel('Import audio files').setInputFiles({ name: 'My original.mp3', mimeType: 'audio/mpeg', buffer: readFileSync('tests/fixtures/original-long-tone.mp3') });
+  await page.getByRole('button', { name: 'Play audio My original', exact: true }).click();
+  await page.getByRole('button', { name: 'Open full player' }).click();
+  await page.getByRole('button', { name: 'Share song ↗' }).click();
+  await expect(dialog.getByRole('button', { name: 'Copy song', exact: true })).toBeVisible();
+  await expect(dialog.getByRole('button', { name: 'Share link…' })).toHaveCount(0);
+  await expect.poll(() => dialog.getByRole('img').evaluate(img => img.naturalHeight)).toBe(1920);
+  await page.evaluate(() => { navigator.clipboard.writeText = async () => { throw new Error('Unavailable'); }; });
+  await dialog.getByRole('button', { name: 'Copy song', exact: true }).click(); await expect(dialog.getByLabel('Song sharing text')).toBeFocused();
+  await page.keyboard.press('Escape');
+  expect(errors).toEqual([]); console.log('PASS real PNG export, story/square sizes, stable playback preview, source link/caption, local-song fallback, clipboard fallback, share stubs/cancel, keyboard, phone and accessibility. No social posts made.');
+} finally { await browser.close(); }

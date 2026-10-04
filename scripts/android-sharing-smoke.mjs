@@ -1,0 +1,37 @@
+import { _android, expect } from '@playwright/test';
+import { execFileSync } from 'node:child_process';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+const output = '.runtime/song-share/android'; mkdirSync(output, { recursive: true });
+const adb = resolve('.runtime/android-tools/sdk/platform-tools/adb.exe');
+const shell = (...args) => execFileSync(adb, ['-s', 'emulator-5554', 'shell', ...args], { encoding: 'utf8' });
+const [device] = (await _android.devices()).filter(item => item.serial() === 'emulator-5554');
+if (!device) throw new Error('Expected isolated emulator-5554; do not use a personal phone.');
+try {
+  shell('input', 'keyevent', '224'); shell('wm', 'dismiss-keyguard'); shell('am', 'start', '-n', 'local.focusspace.mobile/.MainActivity');
+  const view = await device.webView({ pkg: 'local.focusspace.mobile' }), page = await view.page();
+  await expect(page.locator('h1')).toContainText('good sounds');
+  if (!await page.getByRole('button', { name: 'Play audio Share original', exact: true }).count()) await page.getByLabel('Import audio files').setInputFiles({ name: 'Share original.mp3', mimeType: 'audio/mpeg', buffer: readFileSync('tests/fixtures/original-tone.mp3') });
+  await page.getByRole('button', { name: 'Play audio Share original', exact: true }).click();
+  await page.getByRole('button', { name: 'Open full player' }).click();
+  await page.getByRole('button', { name: 'Share song ↗' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Share this song' });
+  await expect(dialog.getByRole('button', { name: 'Share card…' })).toBeVisible();
+  await expect(dialog.getByRole('button', { name: 'Save card' })).toHaveCount(0);
+  await dialog.getByRole('button', { name: 'Share card…' }).click();
+  await expect.poll(() => /(?:mResumedActivity|topResumedActivity)[^\n]*ChooserActivity/.test(shell('dumpsys', 'activity', 'activities'))).toBe(true);
+  await page.waitForTimeout(1000);
+  writeFileSync(`${output}/card-chooser.png`, await device.screenshot());
+  const files = shell('run-as', 'local.focusspace.mobile', 'ls', 'cache/tuniko-share').trim().split(/\s+/); expect(files.length).toBeGreaterThan(0);
+  const png = execFileSync(adb, ['-s', 'emulator-5554', 'exec-out', 'run-as', 'local.focusspace.mobile', 'cat', `cache/tuniko-share/${files.at(-1)}`]);
+  expect(png.subarray(0, 8).toString('hex')).toBe('89504e470d0a1a0a'); expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1080, 1920]); writeFileSync(`${output}/native-card.png`, png);
+  shell('input', 'keyevent', '4');
+  await expect(dialog.getByRole('button', { name: 'Share card…' })).toBeEnabled(); await expect(dialog.getByRole('status')).toBeEmpty();
+  await page.getByRole('button', { name: 'Close song sharing' }).click();
+  await page.evaluate(() => { window.shareCheck = 'pending'; window.Capacitor.nativePromise('Share', 'share', { title: 'Original fixture', text: 'Listening with Tuniko', url: 'https://archive.org/details/original-fixture', dialogTitle: 'Share this song' }).then(() => window.shareCheck = 'done').catch(() => window.shareCheck = 'cancelled'); });
+  await expect.poll(() => /(?:mResumedActivity|topResumedActivity)[^\n]*ChooserActivity/.test(shell('dumpsys', 'activity', 'activities'))).toBe(true);
+  await page.waitForTimeout(1000);
+  writeFileSync(`${output}/link-chooser.png`, await device.screenshot()); shell('input', 'keyevent', '4');
+  await expect.poll(() => page.evaluate(() => window.shareCheck)).not.toBe('pending');
+  console.log('PASS actual Android image/link chooser, cache PNG integrity/story dimensions and cancel recovery. No target selected, no message/post sent. Instagram and physical device unverified.');
+} finally { shell('am', 'force-stop', 'local.focusspace.mobile'); await device.close(); }

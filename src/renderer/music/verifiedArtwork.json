@@ -1,0 +1,333 @@
+{
+  "artists": {
+    "taylorswift": "./artwork/c7962c01ca09049ff662.jpg",
+    "bts": "./artwork/c853321dd03be05777c4.jpg",
+    "brunomars": "./artwork/0996762338ee8dac17d1.jpg",
+    "theweeknd": "./artwork/499fd269a132532eee15.jpg",
+    "arianagrande": "./artwork/ca7c2a229d482a7e0e20.jpg",
+    "billieeilish": "./artwork/51de890ab9ee109f2cc5.jpg",
+    "shawnmendes": "./artwork/72c59032fb44df4ee470.jpg",
+    "adele": "./artwork/200b5854a7dfa4edf075.jpg",
+    "drake": "./artwork/aeb7ad47b2f39411ae95.jpg",
+    "coldplay": "./artwork/e30887458a36253473fc.jpg",
+    "theneighbourhood": "./artwork/a48737ce2000ffc5d3a5.jpg",
+    "rihanna": "./artwork/d6635d75453bdc65fca6.jpg",
+    "beyonce": "./artwork/b0050e7444c3d9c2f2a8.jpg",
+    "dualipa": "./artwork/e400521e54096ea6b604.jpg",
+    "justinbieber": "./artwork/04aee969b24064d3dd3c.jpg",
+    "edsheeran": "./artwork/ff635a695df383a132ec.jpg",
+    "lanadelrey": "./artwork/42dcc200a19957df1fea.jpg",
+    "sza": "./artwork/0afbc4e9aa749d5d348a.jpg",
+    "eminem": "./artwork/63f28142357438038531.jpg",
+    "kendricklamar": "./artwork/e479aaad892be40d8109.jpg",
+    "travisscott": "./artwork/1b7d0a521f583284b689.jpg",
+    "sabrinacarpenter": "./artwork/66033c5ba03491acf268.jpg",
+    "postmalone": "./artwork/7a806dbdb85579b1f015.jpg",
+    "imaginedragons": "./artwork/c1cab7b92f41ce7a5bc4.jpg",
+    "badbunny": "./artwork/cc2295ca949ef47dea03.jpg",
+    "blackpink": "./artwork/f502c7e7cddade0b59e8.jpg"
+  },
+  "songs": {
+    "taylorswiftkendricklamar|badblood": {
+      "cover": "./artwork/5f10f96b73b52a259a4d.jpg",
+      "album": "1989",
+      "source": "https://music.apple.com/us/album/bad-blood/1440935467?i=1440936028&uo=4",
+      "artist": "Taylor Swift",
+      "title": "Bad Blood"
+    },
+    "taylorswift|lovestory": {
+      "cover": "./artwork/5f3375459c32b43f0751.jpg",
+      "album": "Fearless (Platinum Edition)",
+      "source": "https://music.apple.com/us/album/love-story/1452859090?i=1452859410&uo=4",
+      "artist": "Taylor Swift",
+      "title": "Love Story"
+    },
+    "taylorswift|thefateofophelia": {
+      "cover": "./artwork/06bc9690e02b30373784.jpg",
+      "album": "The Life of a Showgirl",
+      "source": "https://music.apple.com/us/album/the-fate-of-ophelia/1838810949?i=1838810951&uo=4",
+      "artist": "Taylor Swift",
+      "title": "The Fate of Ophelia"
+    },
+    "taylorswift|shakeitoff": {
+      "cover": "./artwork/5f10f96b73b52a259a4d.jpg",
+      "album": "1989",
+      "source": "https://music.apple.com/us/album/shake-it-off/1440935467?i=1440936016&uo=4",
+      "artist": "Taylor Swift",
+      "title": "Shake It Off"
+    },
+    "ladygagabrunomars|diewithasmile": {
+      "cover": "./artwork/1180f9113a59e6443f8a.jpg",
+      "album": "Die With A Smile - Single",
+      "source": "https://music.apple.com/us/album/die-with-a-smile/1762656724?i=1762656732&uo=4",
+      "artist": "Lady Gaga & Bruno Mars",
+      "title": "Die With A Smile"
+    },
+    "brunomars|talkingtothemoon": {
+      "cover": "./artwork/377ba346ea6128237009.jpg",
+      "album": "Doo-Wops & Hooligans",
+      "source": "https://music.apple.com/us/album/talking-to-the-moon/576654788?i=576655100&uo=4",
+      "artist": "Bruno Mars",
+      "title": "Talking to the Moon"
+    },
+    "theweeknd|wickedgames": {
+      "cover": "./artwork/a4b603d3fa30cd1a3956.jpg",
+      "album": "The Highlights",
+      "source": "https://music.apple.com/us/album/wicked-games/1550877895?i=1550878110&uo=4",
+      "artist": "The Weeknd",
+      "title": "Wicked Games"
+    },
+    "theweeknd|often": {
+      "cover": "./artwork/4034abd8edd715f77873.jpg",
+      "album": "Beauty Behind the Madness",
+      "source": "https://music.apple.com/us/album/often/1440858094?i=1440858494&uo=4",
+      "artist": "The Weeknd",
+      "title": "Often"
+    },
+    "theweeknd|smile": {
+      "cover": "./artwork/2c6977afa3d89c26a34b.jpg",
+      "album": "Smile - Single",
+      "source": "https://music.apple.com/us/album/smile/1526561105?i=1526561137&uo=4",
+      "artist": "Juice WRLD & The Weeknd",
+      "title": "Smile"
+    },
+    "theweeknd|calloutmyname": {
+      "cover": "./artwork/2dd1619c31efb45a6519.jpg",
+      "album": "My Dear Melancholy,",
+      "source": "https://music.apple.com/us/album/call-out-my-name/1363309866?i=1363310482&uo=4",
+      "artist": "The Weeknd",
+      "title": "Call Out My Name"
+    },
+    "arianagrande|makeup": {
+      "cover": "./artwork/ecb79894fdbfc6af221d.jpg",
+      "album": "thank u, next",
+      "source": "https://music.apple.com/us/album/make-up/1450333975?i=1450334165&uo=4",
+      "artist": "Ariana Grande",
+      "title": "make up"
+    },
+    "arianagrande|needy": {
+      "cover": "./artwork/ecb79894fdbfc6af221d.jpg",
+      "album": "thank u, next",
+      "source": "https://music.apple.com/us/album/needy/1450333975?i=1450334157&uo=4",
+      "artist": "Ariana Grande",
+      "title": "needy"
+    },
+    "arianagrande|fakesmile": {
+      "cover": "./artwork/ecb79894fdbfc6af221d.jpg",
+      "album": "thank u, next",
+      "source": "https://music.apple.com/us/album/fake-smile/1450333975?i=1450334160&uo=4",
+      "artist": "Ariana Grande",
+      "title": "fake smile"
+    },
+    "shawnmendes|stitches": {
+      "cover": "./artwork/b0857c10fc7f20abd5d3.jpg",
+      "album": "Handwritten (Revisited)",
+      "source": "https://music.apple.com/us/album/stitches/1440843842?i=1440843848&uo=4",
+      "artist": "Shawn Mendes",
+      "title": "Stitches"
+    },
+    "shawnmendes|itllbeokay": {
+      "cover": "./artwork/b681c2c4541c281db45d.jpg",
+      "album": "It'll Be Okay - Single",
+      "source": "https://music.apple.com/us/album/itll-be-okay/1597765074?i=1597765076&uo=4",
+      "artist": "Shawn Mendes",
+      "title": "It'll Be Okay"
+    },
+    "shawnmendes|lostinjapan": {
+      "cover": "./artwork/3639b535990001d86cd7.jpg",
+      "album": "Shawn Mendes",
+      "source": "https://music.apple.com/us/album/lost-in-japan/1376115721?i=1376115727&uo=4",
+      "artist": "Shawn Mendes",
+      "title": "Lost in Japan"
+    },
+    "adele|sendmylovetoyournewlover": {
+      "cover": "./artwork/a979995f9a0fdebee172.jpg",
+      "album": "25",
+      "source": "https://music.apple.com/us/album/send-my-love-to-your-new-lover/1544494115?i=1544494394&uo=4",
+      "artist": "Adele",
+      "title": "Send My Love (To Your New Lover)"
+    },
+    "adele|rollinginthedeep": {
+      "cover": "./artwork/11a0ef09c7815907f48e.jpg",
+      "album": "21",
+      "source": "https://music.apple.com/us/album/rolling-in-the-deep/1544491232?i=1544491233&uo=4",
+      "artist": "Adele",
+      "title": "Rolling in the Deep"
+    },
+    "coldplay|fixyou": {
+      "cover": "./artwork/262d18a866ce17292fba.jpg",
+      "album": "X&Y",
+      "source": "https://music.apple.com/us/album/fix-you/1123076757?i=1123076826&uo=4",
+      "artist": "Coldplay",
+      "title": "Fix You"
+    },
+    "coldplay|feelslikeimfallinginlove": {
+      "cover": "./artwork/ad0933ba662d625c7754.jpg",
+      "album": "Moon Music",
+      "source": "https://music.apple.com/us/album/feelslikeimfallinginlove/1751728791?i=1751728802&uo=4",
+      "artist": "Coldplay",
+      "title": "feelslikeimfallinginlove"
+    },
+    "coldplay|askyfullofstars": {
+      "cover": "./artwork/da0171f9d1ae4783f262.jpg",
+      "album": "Ghost Stories",
+      "source": "https://music.apple.com/us/album/a-sky-full-of-stars/829909653?i=829910927&uo=4",
+      "artist": "Coldplay",
+      "title": "A Sky Full of Stars"
+    },
+    "rihanna|diamonds": {
+      "cover": "./artwork/d3f4732ad38fc73403e5.jpg",
+      "album": "Diamonds - Single",
+      "source": "https://music.apple.com/us/album/diamonds/1444320940?i=1444321282&uo=4",
+      "artist": "Rihanna",
+      "title": "Diamonds"
+    },
+    "dualipa|houdini": {
+      "cover": "./artwork/9e456460d866b19f812c.jpg",
+      "album": "Houdini - Single",
+      "source": "https://music.apple.com/us/album/houdini/1714502820?i=1714502827&uo=4",
+      "artist": "Dua Lipa",
+      "title": "Houdini"
+    },
+    "justinbieber|runawaylove": {
+      "cover": "./artwork/464afda2767bbfb5659f.jpg",
+      "album": "My World 2.0 (Bonus Track Version)",
+      "source": "https://music.apple.com/us/album/runaway-love/1440661543?i=1440661552&uo=4",
+      "artist": "Justin Bieber",
+      "title": "Runaway Love"
+    },
+    "edsheeran|thehillsofaberfeldy": {
+      "cover": "./artwork/5976dc4e814483a5e88e.jpg",
+      "album": "- (Deluxe)",
+      "source": "https://music.apple.com/us/album/the-hills-of-aberfeldy/1673804537?i=1673805365&uo=4",
+      "artist": "Ed Sheeran",
+      "title": "The Hills of Aberfeldy"
+    },
+    "edsheeran|vega": {
+      "cover": "./artwork/5976dc4e814483a5e88e.jpg",
+      "album": "- (Deluxe)",
+      "source": "https://music.apple.com/us/album/vega/1673804537?i=1673805220&uo=4",
+      "artist": "Ed Sheeran",
+      "title": "Vega"
+    },
+    "edsheeran|nostrings": {
+      "cover": "./artwork/5976dc4e814483a5e88e.jpg",
+      "album": "- (Deluxe)",
+      "source": "https://music.apple.com/us/album/no-strings/1673804537?i=1673805359&uo=4",
+      "artist": "Ed Sheeran",
+      "title": "No Strings"
+    },
+    "edsheeran|repeatit": {
+      "cover": "./artwork/7b6d97a6bf9237e0066a.jpg",
+      "album": "Repeat It - Single",
+      "source": "https://music.apple.com/us/album/repeat-it/1895713789?i=6764277864&uo=4",
+      "artist": "Martin Garrix & Ed Sheeran",
+      "title": "Repeat It"
+    },
+    "edsheeran|sapphire": {
+      "cover": "./artwork/8f74fd53cd6d3aad8bd8.jpg",
+      "album": "Play",
+      "source": "https://music.apple.com/us/album/sapphire/1811175532?i=1811175544&uo=4",
+      "artist": "Ed Sheeran",
+      "title": "Sapphire"
+    },
+    "edsheeran|perfect": {
+      "cover": "./artwork/e2a14691f816abb2ffad.jpg",
+      "album": "÷ (Deluxe)",
+      "source": "https://music.apple.com/us/album/perfect/1193701079?i=1193701400&uo=4",
+      "artist": "Ed Sheeran",
+      "title": "Perfect"
+    },
+    "lanadelrey|westcoast": {
+      "cover": "./artwork/5aeb21224491b7d2aa48.jpg",
+      "album": "Ultraviolence (Deluxe)",
+      "source": "https://music.apple.com/us/album/west-coast/1440818509?i=1440818520&uo=4",
+      "artist": "Lana Del Rey",
+      "title": "West Coast"
+    },
+    "futurekendricklamar|likethat": {
+      "cover": "./artwork/f5c3267d3b2ee760dc8e.jpg",
+      "album": "WE DON'T TRUST YOU",
+      "source": "https://music.apple.com/us/album/like-that/1737320962?i=1737320971&uo=4",
+      "artist": "Future, Metro Boomin & Kendrick Lamar",
+      "title": "Like That"
+    },
+    "travisscottkendricklamar|goosebumps": {
+      "cover": "./artwork/511138d37ebdc888fb60.jpg",
+      "album": "Birds In The Trap Sing McKnight",
+      "source": "https://music.apple.com/us/album/goosebumps/1151481435?i=1151481750&uo=4",
+      "artist": "Travis Scott",
+      "title": "goosebumps"
+    },
+    "travisscott|highestintheroom": {
+      "cover": "./artwork/d9827d3e671a9f9e68f1.jpg",
+      "album": "HIGHEST IN THE ROOM - Single",
+      "source": "https://music.apple.com/us/album/highest-in-the-room/1482217452?i=1482217453&uo=4",
+      "artist": "Travis Scott",
+      "title": "HIGHEST IN THE ROOM"
+    },
+    "postmalone|newrecording12jan32020": {
+      "cover": "./artwork/ebb311e712ef70ef3699.jpg",
+      "album": "Twelve Carat Toothache (Deluxe)",
+      "source": "https://music.apple.com/us/album/new-recording-12-jan-3-2020/1628227327?i=1628227787&uo=4",
+      "artist": "Post Malone",
+      "title": "New Recording 12, Jan 3, 2020"
+    },
+    "imaginedragons|radioactive": {
+      "cover": "./artwork/6edbd09ba21182a0b698.jpg",
+      "album": "Night Visions",
+      "source": "https://music.apple.com/us/album/radioactive/1440873107?i=1440873126&uo=4",
+      "artist": "Imagine Dragons",
+      "title": "Radioactive"
+    },
+    "imaginedragons|believer": {
+      "cover": "./artwork/bbdf17bf70129bf98cc4.jpg",
+      "album": "Evolve",
+      "source": "https://music.apple.com/us/album/believer/1411625594?i=1411628233&uo=4",
+      "artist": "Imagine Dragons",
+      "title": "Believer"
+    },
+    "badbunny|comoantes": {
+      "cover": "./artwork/5022ed424c441416ec0a.jpg",
+      "album": "X 100PRE",
+      "source": "https://music.apple.com/us/album/como-antes/1447554595?i=1447554997&uo=4",
+      "artist": "Bad Bunny",
+      "title": "Como Antes"
+    },
+    "badbunny|bendiciones": {
+      "cover": "./artwork/be83589bd97fa198389e.jpg",
+      "album": "LAS QUE NO IBAN A SALIR",
+      "source": "https://music.apple.com/us/album/bendiciones/1512629429?i=1512629481&uo=4",
+      "artist": "Bad Bunny",
+      "title": "BENDICIONES"
+    },
+    "badbunny|atumerced": {
+      "cover": "./artwork/c5cb218338062300847b.jpg",
+      "album": "YHLQMDLG",
+      "source": "https://music.apple.com/us/album/a-tu-merced/1500776322?i=1500776929&uo=4",
+      "artist": "Bad Bunny",
+      "title": "A Tu Merced"
+    },
+    "blackpink|boombayah": {
+      "cover": "./artwork/d348ac07b35b2d417ab2.jpg",
+      "album": "SQUARE ONE - Single",
+      "source": "https://music.apple.com/us/album/boombayah/1315917456?i=1315917630&uo=4",
+      "artist": "BLACKPINK",
+      "title": "BOOMBAYAH"
+    },
+    "blackpink|ddududdudu": {
+      "cover": "./artwork/c047403b57e2f953e6e7.jpg",
+      "album": "SQUARE UP - EP",
+      "source": "https://music.apple.com/us/album/ddu-du-ddu-du/1551479990?i=1551479993&uo=4",
+      "artist": "BLACKPINK",
+      "title": "DDU-DU DDU-DU"
+    },
+    "blackpink|whistle": {
+      "cover": "./artwork/7aa5f7a8537e3fe4a202.jpg",
+      "album": "SQUARE TWO - EP",
+      "source": "https://music.apple.com/us/album/whistle/1313151079?i=1313151083&uo=4",
+      "artist": "BLACKPINK",
+      "title": "WHISTLE"
+    }
+  }
+}

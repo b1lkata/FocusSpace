@@ -1,0 +1,120 @@
+/* Isolated design layer: ?design=classic keeps the preceding layout. */
+.music-app:not(.music-first) .analog-room,.music-app:not(.music-first) .companion-menu { display:contents; }
+.music-app:not(.music-first) .analog-room>summary,.music-app:not(.music-first) .companion-menu>summary { display:none; }
+.music-first { background:#101014; background-image:none; --music-accent:#b9a8e4; }
+.music-first main:not(.music-browsing) { display:flex; flex-direction:column; width:min(1240px,100%); padding:0 40px 100px; }
+.music-first .music-header { border:0; padding:24px 40px; height:90px; }
+.music-first .music-brand { font-size:24px; letter-spacing:-1px; }
+.music-first .music-brand>span:first-child { border:0; background:none; width:25px; margin-right:8px; }
+.music-first .music-eyebrow { font-size:10px; letter-spacing:1px; color:#b1a7c0; }
+.music-first .song-discovery { order:1; padding:12px 0 0; margin:0; }
+.music-first .music-discover { order:2; padding:0; margin:20px 0 36px; }
+.music-first .analog-room { order:3; margin:8px 0; }
+.music-first .companion-menu { order:4; margin:8px 0 28px; }
+.music-first .analog-room>summary,.music-first .companion-menu>summary { cursor:pointer; padding:16px 0; font-size:15px; color:#c1b8cf; border-bottom:1px solid #ffffff0e; }
+.music-first .music-hero { padding:35px 0; min-height:500px; }
+.music-first .buddy-settings { padding:30px 0; margin:0; }
+.music-first .music-footer { order:5; padding:25px 0; border-color:#ffffff0c; }
+.home-feed-section { margin:14px 0 36px; }
+.home-feed-section h2,.music-first .featured-albums h2,.home-library-heading { font-size:27px; line-height:1.2; font-weight:700; letter-spacing:-.9px; margin:0 0 20px; }
+.home-song-strip { display:grid; grid-auto-flow:column; grid-auto-columns:190px; gap:20px; overflow-x:auto; padding:0 0 12px; scroll-snap-type:x proximity; scrollbar-width:none; }
+.home-song-card { position:relative; scroll-snap-align:start; min-width:0; }
+.home-song-play { display:block; width:100%; border:0; background:none; text-align:left; padding:0; }
+.home-song-play .track-artwork { display:block; width:100%; height:auto; aspect-ratio:1; border-radius:12px; overflow:hidden; background:linear-gradient(135deg,#42394f,#22212a); }
+.home-song-play .track-artwork img { width:100%; height:100%; object-fit:cover; }
+.home-song-play .track-artwork>span { display:grid; height:100%; place-items:center; }
+.home-song-play strong { display:block; font-size:15px; font-weight:650; margin:12px 0 5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.home-song-play small { display:block; color:#b7aebf; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding-right:30px; }
+.home-song-card .song-heart { position:absolute; bottom:-4px; right:-6px; font-size:21px; }
+.music-first .featured-albums { padding:0; margin:20px 0 36px; }
+.music-first .album-shelf-heading small { display:none; }
+.music-first .album-shelf-heading { margin-bottom:4px; }
+.music-first .featured-albums>small { color:#a89db3; font-size:11px; }
+.music-first .featured-albums>p[role=status] { font-size:11px; }
+.music-first .album-shelf { gap:20px; padding:12px 0; }
+.music-first .featured-album { padding:0; background:none; border:0; box-shadow:none; border-radius:0; width:180px; min-width:180px; text-align:left; }
+.music-first .featured-album .album-art { border-radius:12px; width:180px; height:180px; }
+.music-first .featured-album strong { font-size:15px; margin:12px 0 5px; }
+.music-first .featured-album small { font-size:12px; color:#b7aebf; }
+.music-first .featured-albums>button { background:none; border:0; padding:8px 0; font-size:11px; color:#b7aebf; }
+.music-first .album-arrows button { border:0; background:#ffffff08; }
+.music-first .home-library-heading { margin:30px 0 18px; }
+.music-first .audio-library { margin:0 0 20px; }
+.music-first .audio-library>.music-section-title { display:none; }
+.music-first .audio-library[data-has-track=false]>.player-content { display:none; }
+.music-first .liked-songs { border:0; background:none; padding:0; margin:0 0 24px; }
+.music-first .playlist-card { border:0; background:#1b1920; }
+.music-first .playlist-tools { background:none; }
+.music-first .music-section-title h2 { font-size:25px; letter-spacing:-.7px; font-weight:700; }
+.music-first .music-section-title .music-eyebrow { display:none; }
+.music-first .mood-grid { grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px; }
+.music-first .mood-card { min-height:110px; border:0; border-radius:12px; padding:16px; background:color-mix(in srgb,var(--mood-color) 10%,#18171d); }
+.music-first .mood-art { height:35px; width:35px; margin-bottom:12px; }
+.music-first .mood-art i { display:none; }
+.music-first .mood-art svg { width:27px; height:27px; }
+.music-first .mood-card strong { font-size:15px; }
+.music-first .mood-card small { display:none; }
+.music-first .music-search-dock .song-search { background:#24212b; border:1px solid transparent; box-shadow:none; border-radius:12px; }
+.music-first .music-search-dock .song-search:focus-within { border-color:#b9a8e4; box-shadow:none; }
+.music-first .song-suggestions { border-radius:16px; background:#211e28; box-shadow:0 20px 70px #0008; }
+.music-first .song-suggestion { border-radius:10px; }
+.music-first .phone-navigation { background:#111116f5; border-top:1px solid #ffffff0b; }
+.music-first .viewport-companion { scale:.48; opacity:.85; }
+.music-first .viewport-companion .buddy-name { display:none; }
+.tuniko-music-first .audio-record { border-radius:14px; background:linear-gradient(135deg,#40374d,#24212d); animation:none; box-shadow:0 16px 40px #0005; overflow:hidden; }
+.tuniko-music-first .audio-record>i,.tuniko-music-first .audio-record:after { display:none; }
+.tuniko-music-first .audio-record>.track-artwork { position:absolute; inset:0; width:100%; height:100%; border-radius:14px; }
+.tuniko-music-first .audio-record>.track-artwork img { width:100%; height:100%; object-fit:cover; border-radius:14px; }
+.tuniko-music-first .audio-record>.track-artwork>span { display:grid; width:100%; height:100%; place-items:center; }
+.tuniko-music-first .audio-record>.track-artwork svg { width:48px; height:48px; color:#cabade; }
+.tuniko-music-first .phone-full-player { background:radial-gradient(ellipse at 50% 0%,#67537138,transparent 65%),#121116; padding:18px 24px 40px; }
+.tuniko-music-first .phone-full-player .audio-deck { gap:24px; padding:20px 0; }
+.tuniko-music-first .phone-full-player .audio-record { width:min(68vw,280px); height:min(68vw,280px); aspect-ratio:1; }
+.tuniko-music-first .phone-full-player .audio-current { text-align:left; }
+.tuniko-music-first .phone-full-player .audio-current>.music-eyebrow { display:none; }
+.tuniko-music-first .phone-full-player .audio-current>strong { font-size:26px; line-height:1.2; font-weight:700; letter-spacing:-.7px; margin:0 0 8px; }
+.tuniko-music-first .phone-full-player .audio-current>small { font-size:15px; color:#c0b5ca; }
+.tuniko-music-first .phone-full-player .audio-transport { margin:24px 0; }
+.tuniko-music-first .phone-full-player .audio-main-play { background:#eee8f4; color:#201a27; }
+.tuniko-music-first .phone-full-player .audio-volume { font-size:11px; margin:0; }
+.tuniko-music-first .phone-full-player .player-options button,.tuniko-music-first .phone-full-player .player-options label { border:0; padding:10px 12px; background:#ffffff07; }
+.tuniko-music-first .phone-full-player .playback-queue { background:none; border:0; padding:8px 0; }
+@media(max-width:760px) {
+ .music-first main:not(.music-browsing) { padding:0 20px 170px; }
+ .music-first .music-header { height:124px; padding:16px 20px 74px; }
+ .music-first .music-search-dock { left:20px; right:20px; }
+ .music-first .song-discovery { padding-top:18px; }
+ .home-feed-section h2,.music-first .featured-albums h2,.home-library-heading { font-size:26px; }
+ .home-song-strip { grid-auto-columns:156px; gap:16px; margin-right:-20px; padding-right:20px; }
+ .home-feed-section { margin-bottom:30px; }
+ .music-first .featured-album { width:156px; min-width:156px; }
+ .music-first .featured-album .album-art { width:156px; height:156px; }
+ .music-first .album-shelf { gap:16px; margin-right:-20px; padding-right:20px; }
+ .music-first .audio-library>.player-content { display:none; }
+ .music-first .music-discover { margin-top:20px; }
+ .music-first .mood-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+ .music-first .mood-card { min-height:95px; padding:14px; }
+ .tuniko-music-first .phone-mini-player { background:#25212beF; border:0; border-radius:12px; left:12px; right:12px; box-shadow:0 4px 16px #0004; }
+ .music-first .viewport-companion { scale:.42; }
+ .music-first .music-hero { display:block; min-height:0; }
+ .music-first .music-visual { height:360px; }
+ .music-first .music-copy h1 { font-size:38px; }
+}
+@media(prefers-reduced-motion:reduce) { .home-song-play { transition:none; } }
+
+.music-first .music-header>nav>button { display:none; }
+.music-first .home-settings { position:relative; z-index:130; }
+.music-first .home-settings>summary { display:grid; place-items:center; width:44px; height:44px; cursor:pointer; list-style:none; font-size:28px; color:#ddd5e7; }
+.music-first .home-settings>summary::-webkit-details-marker { display:none; }
+.music-first .home-settings>div { position:absolute; top:48px; right:0; width:210px; padding:10px; border-radius:14px; background:#26222e; box-shadow:0 16px 45px #0007; }
+.music-first .home-settings button { display:block; width:100%; text-align:left; border:0; background:none; padding:12px; font-size:13px; }
+.tuniko-music-first .phone-mini-player:has(.mini-song[aria-label="Find a song"]) { display:none; }
+.tuniko-music-first .audio-record>.track-artwork { border:0; }
+
+.music-first .music-brand { order:0; }
+.music-first .music-header>nav { order:2; }
+.music-first .home-settings { order:3; margin-left:auto; }
+
+.music-first .music-header { position:sticky; top:0; }
+.music-first .home-settings { position:absolute; top:12px; right:20px; margin:0; }
+.music-first .featured-albums>p[data-note=false] { display:none; }

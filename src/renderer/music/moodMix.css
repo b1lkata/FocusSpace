@@ -1,0 +1,27 @@
+.mood-mix-window { box-sizing:border-box; width:min(560px,calc(100vw - 32px)); max-height:min(720px,85dvh); padding:0; border:1px solid #ffffff14; border-radius:24px; background:#18181f; color:#f6f3fa; box-shadow:0 30px 100px #0009; overflow:hidden; }
+.mood-mix-window::backdrop { background:#090a12aa; backdrop-filter:blur(8px); }
+.mood-mix-window[open] { animation:mood-window-in .22s cubic-bezier(.2,.8,.2,1); }
+.mood-mix-content { display:flex; flex-direction:column; max-height:inherit; }
+.mood-mix-window header { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:26px 24px 18px; background:linear-gradient(140deg,color-mix(in srgb,var(--mood-color) 14%,#18181f),#18181f); }
+.mood-mix-window h2 { font:700 28px/1.2 Manrope,sans-serif; margin:0; color:#f6f3fa; }
+.mood-mix-window header p { margin:8px 0 0; font:400 14px/1.5 Manrope,sans-serif; color:#c5becd; }
+.mood-mix-window button { -webkit-tap-highlight-color:transparent; touch-action:manipulation; cursor:pointer; font-family:Manrope,sans-serif; }
+.mood-mix-window header button { width:44px; height:44px; flex-shrink:0; border:0; border-radius:50%; background:#ffffff09; color:#f6f3fa; font-size:26px; }
+.mood-mix-toolbar { padding:0 24px 14px; display:flex; gap:16px; align-items:center; justify-content:space-between; font:400 13px/1.4 Manrope,sans-serif; color:#c5becd; }
+.mood-mix-toolbar button { background:#ffffff0b; color:#f6f3fa; border:0; border-radius:12px; min-height:44px; padding:0 16px; font-size:13px; }
+.mood-mix-toolbar button:disabled { opacity:.5; cursor:default; }
+.mood-mix-songs { overflow:auto; overscroll-behavior:contain; padding:0 12px 18px; min-height:0; }
+.mood-mix-song { width:100%; min-height:76px; display:flex; gap:14px; align-items:center; padding:10px 12px; background:transparent; color:#f6f3fa; border:0; border-radius:14px; text-align:left; transition:background .16s,transform .16s; }
+.mood-mix-song>.track-artwork { flex-shrink:0; width:54px; height:54px; border-radius:10px; overflow:hidden; }
+.mood-mix-song>span:nth-child(2) { min-width:0; flex:1; }
+.mood-mix-song strong,.mood-mix-song small { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.mood-mix-song strong { font-size:15px; line-height:1.5; font-weight:600; }
+.mood-mix-song small { font-size:13px; line-height:1.6; color:#c5becd; }
+.mood-mix-play { color:var(--mood-color); font-size:12px; }
+.mood-mix-song:active { background:#ffffff0d; transform:scale(.985); }
+.mood-mix-window button:focus-visible { outline:2px solid var(--mood-color); outline-offset:-2px; }
+.mood-mix-empty { margin:0; padding:4px 24px 28px; color:#c5becd; font:400 14px/1.6 Manrope,sans-serif; }
+@media(hover:hover) { .mood-mix-song:hover,.mood-mix-window header button:hover,.mood-mix-toolbar button:not(:disabled):hover { background:#ffffff0c; } }
+@media(max-width:760px) { .mood-mix-window { width:100%; max-width:100%; max-height:80dvh; margin: auto 0 0; border-radius:24px 24px 0 0; border-bottom:0; }.mood-mix-songs { padding-bottom:calc(18px + env(safe-area-inset-bottom)); } }
+@keyframes mood-window-in { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@media(prefers-reduced-motion:reduce) { .mood-mix-window[open] { animation:none; }.mood-mix-song { transition:none; } }

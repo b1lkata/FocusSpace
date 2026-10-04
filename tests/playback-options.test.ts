@@ -1,0 +1,4 @@
+import { expect,it } from 'vitest';
+import { nextRepeat, endedIndex, shuffledUpcoming } from '../src/renderer/music/playbackOptions';
+it('cycles explicit repeat modes and stops at queue end by default',()=>{expect(nextRepeat('off')).toBe('all');expect(nextRepeat('all')).toBe('one');expect(nextRepeat('one')).toBe('off');expect(endedIndex(2,3,'off')).toBe(-1);expect(endedIndex(2,3,'all')).toBe(0);expect(endedIndex(1,3,'one')).toBe(1);expect(endedIndex(0,0,'all')).toBe(-1);});
+it('shuffles only future songs without changing source queue or losing tracks',()=>{const source=[1,2,3,4,5];const result=shuffledUpcoming(source,1,()=>0);expect(result.slice(0,2)).toEqual([1,2]);expect([...result].sort()).toEqual(source);expect(result).not.toEqual(source);expect(source).toEqual([1,2,3,4,5]);expect(shuffledUpcoming(source,4)).toEqual(source);});

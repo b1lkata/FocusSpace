@@ -1,0 +1,51 @@
+import { chromium, expect } from '@playwright/test';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+const output = resolve('.runtime/companion-polish'); mkdirSync(output, { recursive: true });
+const browser = await chromium.launch({ channel: 'msedge', headless: true });
+const report = { assertions: [] };
+try {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 920 }, hasTouch: true });
+  await page.goto((process.env.FOCUSSPACE_TEST_URL ?? 'http://127.0.0.1:4173/'));
+  await expect(page.locator('form')).toHaveCount(1);
+  await expect(page.locator('.audio-import')).toHaveCount(0);
+  await expect(page.getByText('Less noise. More feeling.', { exact: true })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: /^Visit / })).toHaveCount(0);
+  const pet = page.locator('.viewport-companion'); const button = pet.locator('button');
+  const before = await button.boundingBox();
+  await page.mouse.move(before.x + 45, before.y + 45); await page.mouse.down();
+  await page.mouse.move(60, 60, { steps: 12 }); await page.mouse.up();
+  const moved = await pet.boundingBox(); expect(moved.x).toBeLessThan(80); expect(moved.y).toBeLessThan(80);
+  const prefs = await page.evaluate(() => JSON.parse(localStorage.getItem('focusspace.music.v1')));
+  await page.locator('.music-app').evaluate(el => el.scrollTop = 1100);
+  expect((await pet.boundingBox()).y).toBeCloseTo(moved.y, 1);
+  await page.reload(); expect((await pet.boundingBox()).x).toBeCloseTo(moved.x, 1);
+  await button.focus(); await button.press('Space'); await button.press('ArrowRight'); await button.press('Escape');
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('focusspace.music.v1')).x)).toBe(prefs.x);
+  await button.press('Space'); await button.press('ArrowRight'); await button.press('Space');
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('focusspace.music.v1')).x)).toBeGreaterThan(prefs.x);
+  await button.press('Enter'); await expect(page.locator('.companion-bubble')).toBeVisible();
+  report.assertions.push('One search; viewport drag, scroll independence, persisted placement, keyboard drop/cancel and hello work.');
+  await page.getByRole('button', { name: 'Reset position', exact: true }).click();
+  await page.getByRole('button', { name: 'Hide buddy', exact: true }).click(); await expect(pet).toHaveCount(0);
+  await page.getByRole('button', { name: /^Show / }).first().click(); await expect(pet).toBeVisible();
+  await page.locator('.music-app').evaluate(el => { el.style.scrollBehavior = 'auto'; el.scrollTop = 0; });
+  await expect.poll(() => page.locator('.music-app').evaluate(el => el.scrollTop)).toBe(0);
+  await page.screenshot({ path: resolve(output, 'desktop.png') });
+  for (const viewport of [{ width: 390, height: 844 }, { width: 720, height: 460 }]) {
+    await page.setViewportSize(viewport);
+    await expect.poll(async () => { const bounds = await pet.boundingBox(); return bounds.y + bounds.height; }).toBeLessThanOrEqual(viewport.height + 1);
+    const box = await pet.boundingBox(); expect(box.x).toBeGreaterThanOrEqual(0); expect(box.y).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width).toBeLessThanOrEqual(viewport.width + 1); expect(box.y + box.height).toBeLessThanOrEqual(viewport.height + 1);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.screenshot({ path: resolve(output, `home-${viewport.width}.png`) });
+  }
+  const cdp = await page.context().newCDPSession(page); const start = await button.boundingBox();
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: start.x + 45, y: start.y + 45 }] });
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 80, y: 70 }] });
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  expect((await pet.boundingBox()).x).toBeLessThan(100);
+  report.assertions.push('Touch dragging moves the pet without scrolling the page.');
+  report.assertions.push('Reset/hide/restore and viewport resizing keep the companion on screen.');
+  console.log(report);
+} finally { await browser.close(); writeFileSync(resolve(output, 'report.json'), JSON.stringify(report, null, 2)); }

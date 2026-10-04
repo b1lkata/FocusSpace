@@ -1,0 +1,19 @@
+Tuniko Demo License
+Copyright (c) 2026 Kristian Gaydov. All rights reserved where applicable.
+
+Permission is granted to view this source, build and run the demo for personal,
+non-commercial evaluation, and make private modifications for that evaluation.
+Viewing and forking through GitHub are permitted under GitHub's platform terms.
+Keep this notice and all third-party notices in permitted copies and forks.
+
+No permission is granted to sell, sublicense, commercially reuse, or redistribute
+this application, its original visual assets or demo recordings outside those
+limited permissions without the author's prior written permission. No trademark,
+patent, commercial music catalog, or third-party media rights are granted.
+
+Third-party packages, fonts and other credited material remain governed by their
+respective licenses; this notice does not claim ownership of them. The license
+covers applicable original project contributions, not ideas or third-party works.
+
+THE DEMO IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND. TO THE EXTENT PERMITTED
+BY LAW, THE AUTHOR IS NOT LIABLE FOR CLAIMS OR DAMAGES ARISING FROM ITS USE.

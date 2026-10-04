@@ -1,0 +1,33 @@
+node_modules/
+dist/
+out/
+release/
+.runtime/
+*.log
+.env*
+!.env.example
+
+*.jks
+*.keystore
+
+# Local development records and tool state (not part of the demo)
+.local/
+AGENTS.md
+main.py
+docs/*
+!docs/demo.md
+!docs/privacy.md
+!docs/images/
+!docs/release-notes.md
+*.sqlite
+*.sqlite-*
+*.db
+*.enc
+openai-key.bin
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+# SDK paths and generated native web bundles are ignored by platform rules.
+
+!docs/artwork.md

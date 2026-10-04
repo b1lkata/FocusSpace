@@ -1,0 +1,34 @@
+import { _electron as electron, expect } from '@playwright/test';
+import { resolve } from 'node:path';
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { createServer } from 'node:http';
+const server = createServer((_request, response) => { response.setHeader('Content-Type', 'text/html'); response.end('<title>Packaged browser fixture</title><main><h1>A working packaged browser</h1><p>Project context survives a desktop restart.</p></main>'); });
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const fixtureUrl = `http://127.0.0.1:${server.address().port}`;
+mkdirSync(resolve('.runtime/package-check'), { recursive: true });
+const env = { ...process.env, FOCUSSPACE_LEGACY: '1', FOCUSSPACE_DATA_DIR: mkdtempSync(resolve('.runtime/package-check/data-')) }; delete env.ELECTRON_RUN_AS_NODE;
+const manifest = JSON.parse(readFileSync('package.json', 'utf8'));
+const executablePath = resolve(process.env.FOCUSSPACE_PACKAGE_DIR ?? manifest.build.directories.output, 'win-unpacked/FocusSpace.exe');
+const app = await electron.launch({ executablePath, args: [], env });
+try {
+  const identity = await app.evaluate(({ app }) => ({ name: app.getName(), version: app.getVersion() }));
+  expect(identity).toEqual({ name: 'Tuniko', version: manifest.version });
+  const page = await app.firstWindow();
+  await expect(page.getByRole('heading', { name: 'A little room for big ideas.' })).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  expect(await page.evaluate(() => Array.from(document.fonts).some(face => face.family === 'Manrope' && face.status === 'loaded'))).toBe(true);
+  await page.getByRole('button', { name: 'Try a sample space' }).click();
+  await expect(page.getByRole('heading', { name: 'Build My App', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: '▦ Grid', exact: true }).click();
+  await page.getByRole('button', { name: '＋ Website', exact: true }).click();
+  await page.getByRole('dialog').getByRole('textbox').fill(fixtureUrl);
+  await page.getByRole('button', { name: 'Add to my space', exact: true }).click();
+  await page.locator('.content-card').filter({ hasText: fixtureUrl }).locator('.card-open').click();
+  await expect(page.locator('.browser-status')).toContainText('Packaged browser fixture', { timeout: 10000 });
+  const remote = app.windows().find(p => p !== page && p.url().startsWith(fixtureUrl));
+  await expect(remote.locator('h1')).toHaveText('A working packaged browser');
+  mkdirSync(resolve('.runtime/package-check-artifacts'), { recursive: true });
+  writeFileSync(resolve('.runtime/package-check-artifacts/result.json'), JSON.stringify({ executablePath, identity, launch: 'passed', demoWorkspace: 'passed', interfaceFont: 'bundled Manrope loaded', realBrowsing: 'isolated local HTTP website loaded', credentials: 'not supplied' }, null, 2));
+  console.log('PASS packaged executable launch, demo workspace and isolated HTTP browsing');
+  if (process.argv.includes('--keep-open')) await new Promise(resolve => app.on('close', resolve));
+} finally { await app.close().catch(() => {}); server.close(); }

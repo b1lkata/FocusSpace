@@ -1,0 +1,132 @@
+{
+  "Taylor Swift": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/11/a6/80/11a680e6-2e48-08fa-5e87-3f18e838d31f/23UM1IM11868.rgb.jpg/1200x1200bb.jpg",
+    "album": "1989 (Taylor's Version)",
+    "source": "https://music.apple.com/us/album/1989-taylors-version/1708308989?uo=4"
+  },
+  "BTS": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/bd/68/9b/bd689bf2-ef25-4973-7ecd-7eb4965019c5/195081034713_Cover.jpg/1200x1200bb.jpg",
+    "album": "MAP OF THE SOUL : 7",
+    "source": "https://music.apple.com/us/album/map-of-the-soul-7/1599362484?uo=4"
+  },
+  "Bruno Mars": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/e3/47/a0/e347a0cc-87ce-5d05-d560-176c7d48f66e/075679904119.jpg/1200x1200bb.jpg",
+    "album": "24K Magic",
+    "source": "https://music.apple.com/us/album/24k-magic/1161503945"
+  },
+  "The Weeknd": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/6f/bc/e6/6fbce6c4-c38c-72d8-4fd0-66cfff32f679/20UMGIM12176.rgb.jpg/1200x1200bb.jpg",
+    "album": "After Hours",
+    "source": "https://music.apple.com/us/album/after-hours/1499378108"
+  },
+  "Ariana Grande": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/2e/88/88/2e8888ad-a0cf-eece-70a7-1ff81377a3ab/24UMGIM00198.rgb.jpg/1200x1200bb.jpg",
+    "album": "eternal sunshine",
+    "source": "https://music.apple.com/us/album/eternal-sunshine/1725913366"
+  },
+  "Billie Eilish": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/92/9f/69/929f69f1-9977-3a44-d674-11f70c852d1b/24UMGIM36186.rgb.jpg/1200x1200bb.jpg",
+    "album": "HIT ME HARD AND SOFT",
+    "source": "https://music.apple.com/us/album/hit-me-hard-and-soft/1739659134"
+  },
+  "Shawn Mendes": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b2/78/d2/b278d2a5-ca4d-297e-8947-6f0568b1e58d/24UMGIM83490.rgb.jpg/1200x1200bb.jpg",
+    "album": "Shawn",
+    "source": "https://music.apple.com/us/album/shawn/1761184325"
+  },
+  "Adele": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/73/6d/7c/736d7cfb-c79d-c9a9-4170-5e71d008dea1/886449666430.jpg/1200x1200bb.jpg",
+    "album": "30",
+    "source": "https://music.apple.com/us/album/30/1590035691"
+  },
+  "Drake": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/d2/53/62/d2536245-b94c-b3fd-7168-9512f655f6d4/00602527899091.rgb.jpg/1200x1200bb.jpg",
+    "album": "Take Care (Deluxe Version)",
+    "source": "https://music.apple.com/us/album/take-care-deluxe-version/1440745498?uo=4"
+  },
+  "Coldplay": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/b9/b4/2a/b9b42ad1-1e25-5096-da43-497a247e69a3/190295978051.jpg/1200x1200bb.jpg",
+    "album": "A Rush of Blood to the Head",
+    "source": "https://music.apple.com/us/album/a-rush-of-blood-to-the-head/1122775993"
+  },
+  "The Neighbourhood": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/28/71/00/287100fb-5c31-0195-5343-e6b3625886d0/886443969834.jpg/1200x1200bb.jpg",
+    "album": "I Love You.",
+    "source": "https://music.apple.com/us/album/i-love-you/635016635"
+  },
+  "Rihanna": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/9c/da/90/9cda90c9-df1a-078b-319c-bdf2801e8d1f/16UMGIM03373.rgb.jpg/1200x1200bb.jpg",
+    "album": "ANTI (Deluxe)",
+    "source": "https://music.apple.com/us/album/anti-deluxe/1440924615?uo=4"
+  },
+  "Beyonce": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/fe/ba/43/feba43be-99e8-ad8c-9fad-1bfdea7a4e98/196589344267.jpg/1200x1200bb.jpg",
+    "album": "RENAISSANCE",
+    "source": "https://music.apple.com/us/album/renaissance/1636789969?uo=4"
+  },
+  "Dua Lipa": {
+    "album": "Future Nostalgia",
+    "source": "https://music.apple.com/us/album/future-nostalgia/1538003494?uo=4",
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/6c/11/d6/6c11d681-aa3a-d59e-4c2e-f77e181026ab/190295092665.jpg/1200x1200bb.jpg"
+  },
+  "Justin Bieber": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/81/a4/dc/81a4dc50-8d7e-6ae5-71d3-f83393348248/15UMGIM59807.rgb.jpg/1200x1200bb.jpg",
+    "album": "Purpose",
+    "source": "https://music.apple.com/us/album/purpose/1440825845?uo=4"
+  },
+  "Ed Sheeran": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/1200x1200bb.jpg",
+    "album": "÷ (Deluxe)",
+    "source": "https://music.apple.com/us/album/deluxe/1193701079?uo=4"
+  },
+  "Lana Del Rey": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/59/10/66/591066ea-3c85-3dfe-ef82-ffdbbcdfc8b9/12UMGIM00033.rgb.jpg/1200x1200bb.jpg",
+    "album": "Born To Die",
+    "source": "https://music.apple.com/us/album/born-to-die/1779781213?uo=4"
+  },
+  "SZA": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/62/93/13/6293132e-20ff-67ab-3d1f-96bb6797a6ba/196589564955.jpg/1200x1200bb.jpg",
+    "album": "SOS",
+    "source": "https://music.apple.com/us/album/sos/1658650093?uo=4"
+  },
+  "Eminem": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/dd/5c/e6/dd5ce621-f7d2-f767-7a08-e7a7eaa7870b/00602537526994.rgb.jpg/1200x1200bb.jpg",
+    "album": "The Eminem Show",
+    "source": "https://music.apple.com/us/album/the-eminem-show/1440821542?uo=4"
+  },
+  "Kendrick Lamar": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/ab/16/ef/ab16efe9-e7f1-66ec-021c-5592a23f0f9e/17UMGIM88793.rgb.jpg/1200x1200bb.jpg",
+    "album": "DAMN.",
+    "source": "https://music.apple.com/us/album/damn/1440881722?uo=4"
+  },
+  "Travis Scott": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/e7/49/8f/e7498f65-df8f-bead-d6e3-2a8d4d642a79/886447235317.jpg/1200x1200bb.jpg",
+    "album": "ASTROWORLD",
+    "source": "https://music.apple.com/us/album/astroworld/1421658111?uo=4"
+  },
+  "Sabrina Carpenter": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a1/1c/ca/a11ccab6-7d4c-e041-d028-998bcebeb709/24UMGIM61704.rgb.jpg/1200x1200bb.jpg",
+    "album": "Short n' Sweet",
+    "source": "https://music.apple.com/us/album/short-n-sweet/1752214909?uo=4"
+  },
+  "Post Malone": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/6c/13/27/6c13279a-399b-2631-3cb2-6233a91d7a53/19UMGIM78325.rgb.jpg/1200x1200bb.jpg",
+    "album": "Hollywood's Bleeding",
+    "source": "https://music.apple.com/us/album/hollywoods-bleeding/1477886950?uo=4"
+  },
+  "Imagine Dragons": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/11/7a/b8/117ab805-6811-8929-18b9-0fad7baf0c25/17UMGIM98210.rgb.jpg/1200x1200bb.jpg",
+    "album": "Evolve",
+    "source": "https://music.apple.com/us/album/evolve/1411625594?uo=4"
+  },
+  "Bad Bunny": {
+    "album": "Un Verano Sin Ti",
+    "source": "https://music.apple.com/us/album/un-verano-sin-ti/1622045624?uo=4",
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/3e/04/eb/3e04ebf6-370f-f59d-ec84-2c2643db92f1/196626945068.jpg/1200x1200bb.jpg"
+  },
+  "BLACKPINK": {
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/c3/64/46/c364465f-6271-8aae-93a8-b9979d2befe5/20UMGIM82075.rgb.jpg/1200x1200bb.jpg",
+    "album": "THE ALBUM",
+    "source": "https://music.apple.com/us/album/the-album/1533894050?uo=4"
+  }
+}

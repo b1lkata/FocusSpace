@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs><linearGradient id="room" x2="1" y2="1"><stop stop-color="#b7a7ff"/><stop offset="1" stop-color="#6856cb"/></linearGradient></defs>
+  <rect x="24" y="16" width="208" height="224" rx="48" fill="url(#room)"/>
+  <rect x="57" y="43" width="142" height="170" rx="20" fill="#ffffff" fill-opacity=".06" stroke="#ffffff" stroke-opacity=".25" stroke-width="3"/>
+  <path d="M82 67h98v27h-67v31h57v27h-57v39H82z" fill="#ffffff"/>
+</svg>

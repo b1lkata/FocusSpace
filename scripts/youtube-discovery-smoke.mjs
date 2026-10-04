@@ -1,0 +1,54 @@
+import { chromium, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+const output = resolve('.runtime/youtube'); mkdirSync(output, { recursive: true });
+const report = { assertions: [], errors: [], publicPlayback: 'unverified' };
+const browser = await chromium.launch({ channel: 'msedge', headless: true });
+try {
+  const context = await browser.newContext({ viewport: { width: 1440, height: 920 } }); const page = await context.newPage(); page.on('pageerror', error => report.errors.push(error.message));
+  await page.route('https://www.youtube-nocookie.com/embed/**', route => route.fulfill({ contentType: 'text/html', body: '<title>Local player fixture</title><button onclick="document.body.dataset.playing=\'true\'">Play fixture</button><script>document.body.dataset.bridge=typeof window.focusspace</script>' }));
+  await page.goto('http://127.0.0.1:4173/'); await expect(page.getByRole('heading', { name: 'Find your song.' })).toBeVisible();
+  await page.getByRole('textbox', { name: 'Search music or enter a website' }).fill('blinding lights'); await page.getByRole('button', { name: 'Explore music' }).click();
+  await expect(page.locator('.song-result')).toHaveCount(1); await page.getByRole('button', { name: 'Play Blinding Lights by The Weeknd' }).click();
+  const iframe = page.locator('.youtube-window iframe'); await expect(iframe).toHaveAttribute('src', /embed\/4NRXx6U8ABQ\?autoplay=0/); await expect(iframe).toHaveAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+  await page.frameLocator('.youtube-window iframe').getByRole('button', { name: 'Play fixture' }).click();
+  expect(await page.frameLocator('.youtube-window iframe').locator('body').getAttribute('data-bridge')).toBe('undefined');
+  report.assertions.push('Song-name search selects the correct sandboxed no-autoplay player; its fixture has no app bridge.');
+  await page.screenshot({ path: resolve(output, 'player.png') });
+  await page.getByRole('button', { name: 'Close video player' }).click(); await expect(iframe).toHaveCount(0);
+  await page.getByRole('textbox', { name: 'Search music or enter a website' }).fill('https://youtu.be/5NV6Rdv1a3I'); await page.getByRole('button', { name: 'Play linked video', exact: true }).click(); await expect(iframe).toHaveAttribute('src', /embed\/5NV6Rdv1a3I/);
+  await page.getByRole('button', { name: 'Play ambient loop' }).first().click(); await expect(iframe).toHaveCount(0); await page.getByRole('button', { name: 'Pause ambient loop' }).first().click();
+  report.assertions.push('Pasted YouTube links play in the preview; closing or starting ambience unloads the player.');
+  await page.getByRole('button', { name: 'Explore Billie Eilish', exact: true }).click(); await expect(page.locator('.song-result')).toHaveCount(1);
+  await expect(page.getByRole('button', { name: 'Play BIRDS OF A FEATHER by Billie Eilish' })).toBeVisible();
+  expect(await page.locator('.artist-photo-button>img').evaluateAll(images => images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
+  await page.locator('.artist-windows').scrollIntoViewIfNeeded(); await page.screenshot({ path: resolve(output, 'artists.png') });
+  report.assertions.push('All six real artist images load; artist window filters songs.');
+  await page.getByRole('textbox', { name: 'Search music or enter a website' }).fill('A song outside these starter picks'); await expect(page.locator('.song-results button')).toHaveCount(0); await expect(page.getByRole('button', { name: /Search all YouTube/ })).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 }); await page.locator('.artist-windows').scrollIntoViewIfNeeded(); expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true); await page.screenshot({ path: resolve(output, 'artists-mobile.png') });
+  const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze(); report.accessibility = { violations: audit.violations.map(rule => rule.id), incomplete: audit.incomplete.map(rule => rule.id) }; expect(report.accessibility.violations).toEqual([]);
+  report.assertions.push('No-match guidance, narrow layout and automated accessibility pass.');
+  await page.getByRole('textbox', { name: 'Search music or enter a website' }).fill('Get Lucky');
+  await page.getByRole('button', { name: 'Like Get Lucky', exact: true }).click();
+  await page.reload(); await page.getByRole('button', { name: 'Liked songs 1', exact: true }).click();
+  await expect(page.locator('.song-result')).toHaveCount(1);
+  await expect(page.getByRole('button', { name: 'Unlike Get Lucky', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Unlike Get Lucky', exact: true }).click();
+  await expect(page.locator('.song-result')).toHaveCount(0);
+  await page.evaluate(() => localStorage.setItem('focusspace.library.v1', '{broken'));
+  await page.reload(); await expect(page.getByRole('alert')).toContainText('saved copy is preserved');
+  expect(await page.evaluate(() => localStorage.getItem('focusspace.library.v1'))).toBe('{broken');
+  await expect(page.getByRole('button', { name: 'Like Get Lucky', exact: true })).toBeDisabled();
+  report.assertions.push('Liked songs survive reload; removing works and malformed saved libraries are preserved.');
+  const publicPage = await browser.newPage();
+  try {
+    await publicPage.goto('http://127.0.0.1:4173/'); await publicPage.getByRole('button', { name: 'Play Get Lucky by Daft Punk' }).click();
+    const frame = publicPage.frameLocator('.youtube-window iframe');
+    await frame.locator('.ytp-large-play-button').click({ timeout: 15000 });
+    await expect.poll(() => frame.locator('video').evaluate(video => ({ time: video.currentTime, paused: video.paused })), { timeout: 15000 }).toMatchObject({ paused: false });
+    report.publicPlayback = { state: 'video playing', currentTime: await frame.locator('video').evaluate(video => video.currentTime) };
+  } catch (error) { report.publicPlayback = { state: 'unverified', reason: error.message.slice(0, 400) }; }
+  await publicPage.screenshot({ path: resolve(output, 'public-player.png') }); await publicPage.close();
+  expect(report.errors).toEqual([]); report.assertions.forEach(value => console.log(`PASS ${value}`)); console.log(`Public playback: ${JSON.stringify(report.publicPlayback)}`);
+} finally { await browser.close(); writeFileSync(resolve(output, 'report.json'), JSON.stringify(report, null, 2)); }
